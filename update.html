@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+</head>
+<body>
+  <script>
+    // Function to get query parameters from the URL
+    function getQueryParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+    function goback(){
+        window.location.href = `http://localhost:3000/profile?email=${email}&role=${role}`;
+    }
+    
+    const email = getQueryParam('email');
+    const role = getQueryParam('role');
+
+  </script>
+<form method="post" action="/changedata">
+    <label for="email">Email:</label>
+    <input type="text" id="email" name="email" value="${email}">
+    <br>
+
+    
+    <label for="role">Role:</label>
+    <input type="text" id="role" name="role" value="${role}">
+    <br>
+
+    
+
+    <button type="submit">Save Changes</button>
+</form>
+<button onclick="goback()">Cancel</button>
+  
+</body>
+</html>

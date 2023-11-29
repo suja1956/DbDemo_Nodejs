@@ -1,0 +1,4 @@
+npm init -y
+npm i express body-parser mysql
+nodemon app.js
+Update the app.js with your user, password, and db name

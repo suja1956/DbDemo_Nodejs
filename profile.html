@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+</head>
+<body>
+  <script>
+    // Function to get query parameters from the URL
+    function getQueryParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    // Retrieve and display the inserted data
+    const email = getQueryParam('email');
+    const role = getQueryParam('role');
+
+    document.write(`<p>Email: ${email}</p>`);
+    document.write(`<p>Role: ${role}</p>`);
+
+    function showEditForm() {
+        location.replace(`http://localhost:3000/update?email=${email}&role=${role}`)
+    }
+    function deleteProfile() {
+         fetch(`http://localhost:3000/deleteProfile?email=${email}`, {
+            method: 'DELETE',
+         })
+         .then(response => {
+            if (!response.ok) {
+               throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+         }) 
+         .then(data => {
+            console.log('Profile deleted successfully', data);
+         })
+         .catch(error => {
+            console.error('Error deleting profile:', error);
+            
+         });
+         window.location.href = "http://localhost:3000/signinpage";
+
+    }
+
+  </script>
+<button id="edit" onclick="showEditForm()">edit credentials</button>
+<button onclick="deleteProfile()">delete this profile</button>
+  
+</body>
+</html>
