@@ -56,8 +56,9 @@
 <body>
   <h1>User Profile</h1>
   <p>Email: <span id="email"></span></p>
-  <p>Role: <span id="role"></span></p>
-
+  <p>First Name: <span id="fname"></span></p>
+  <p>Last Name: <span id="lname"></span></p>
+  <p>Age: <span id="age"></span></p>
   <script>
     function getQueryParam(name) {
       const urlParams = new URLSearchParams(window.location.search);
@@ -65,13 +66,16 @@
     }
 
     const email = getQueryParam('email');
-    const role = getQueryParam('role');
+    const fname = getQueryParam('fname');
+    const lname = getQueryParam('lname');
+    const age = getQueryParam('age');
 
     document.getElementById('email').innerText = email;
-    document.getElementById('role').innerText = role;
-
+    document.getElementById('fname').innerText = fname;
+    document.getElementById('lname').innerText = lname;
+    document.getElementById('age').innerText = age;
     function showEditForm() {
-        location.replace(`http://localhost:3000/update?email=${email}&role=${role}`)
+        location.replace(`http://localhost:3000/update?email=${email}&fname=${fname}&lname=${lname}&age=${age}`)
     }
 
     function deleteProfile() {
@@ -91,7 +95,7 @@
             console.error('Error deleting profile:', error);
          });
 
-         window.location.href = "http://localhost:3000/signinpage";
+         window.location.href = "http://localhost:3000/";
     }
   </script>
 

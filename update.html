@@ -65,9 +65,14 @@
     <label for="email">Email:</label>
     <input type="text" id="email" name="email">
 
-    <label for="role">Role:</label>
-    <input type="text" id="role" name="role">
+    <label for="fname">First name:</label>
+    <input type="text" id="fname" name="fname">
 
+    <label for="lname">Last name:</label>
+    <input type="text" id="lname" name="lname">
+
+    <label for="age">Age:</label>
+    <input type="text" id="age" name="age">
     <button type="submit">Save Changes</button>
   </form>
 
@@ -80,13 +85,17 @@
     }
 
     function goback() {
-      window.location.href = `http://localhost:3000/profile?email=${email}&role=${role}`;
+      window.location.href = `http://localhost:3000/profile?email=${email}&fname=${fname}&lname=${lname}&age=${age}`;
     }
 
     const email = getQueryParam('email');
-    const role = getQueryParam('role');
+    const fname = getQueryParam('fname');
+    const lname = getQueryParam('lname');
+    const age = getQueryParam('age');
     document.getElementById('email').value = email;
-    document.getElementById('role').value = role;
+    document.getElementById('fname').value = fname;
+    document.getElementById('lname').value = lname;
+    document.getElementById('age').value = age;
   </script>
 </body>
 </html>

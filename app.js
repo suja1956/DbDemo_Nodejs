@@ -10,7 +10,7 @@ const path = require('path');
 const db = mysql.createConnection({
   host: "localhost", // Update if MySQL is running on a different host
   user: "root",
-  password: "1234",
+  password: "",
   database: "ISAloginDB",
 });
 
@@ -53,12 +53,12 @@ app.get("/register", (req, res) => {
 // Handle form submissions
 app.post("/submitForm", (req, res) => {
   try {
-    const { email, password, role } = req.body;
+    const { email, fname, lname, age, password } = req.body;
 
     // Insert the data into the MySQL table
     db.query(
-      "INSERT INTO ISAloginDB (email, password, role) VALUES (?, ?, ?)", //here ISAloginDB is the author's db name
-      [email, password, role],
+      "INSERT INTO ISAloginDB (email, fname, lname, age, password) VALUES (?, ?, ?, ?, ?)", //here ISAloginDB is the author's db name
+      [email, fname, lname, age, password],
       (err, result) => {
         if (err) {
           console.error("Error inserting data into MySQL:", err);
@@ -93,7 +93,7 @@ try {
       if (result.length > 0) {
         // User found, redirect to a different page with user data
         const user = result[0];
-        res.redirect(`/profile?email=${user.email}&role=${user.role}`);
+        res.redirect(`/profile?email=${user.email}&fname=${user.fname}&lname=${user.lname}&age=${user.age}`);
       } else {
         // User not found or invalid credentials, redirect to an error page
         res.redirect("/error");
@@ -108,9 +108,9 @@ try {
 
 app.post("/changedata",(req,res)=>{
   try {
-    const { email, role } = req.body;
+    const { email, fname, lname, age } = req.body;
     db.query(
-      `UPDATE ISAloginDB SET role="${role}" WHERE email = ?`,
+      `UPDATE ISAloginDB SET fname="${fname}", lname="${lname}", age="${age}" WHERE email = ?`,
       [email],
       (err, result) => {
         if (err) {
@@ -118,7 +118,7 @@ app.post("/changedata",(req,res)=>{
           res.status(500).send("Internal Server Error");
           return;
         }
-        res.redirect(`/profile?email=${email}&role=${role}`);
+        res.redirect(`/profile?email=${email}&fname=${fname}&lname=${lname}&age=${age}`);
     
        } );
   } catch (err) {
