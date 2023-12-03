@@ -4,13 +4,14 @@ const mysql = require("mysql");
 
 const app = express();
 const port = 3000; //eg django runs on 8000
+const path = require('path');
 
 // Create a connection to MySQL
 const db = mysql.createConnection({
   host: "localhost", // Update if MySQL is running on a different host
   user: "root",
-  password: "",
-  database: "isalogindb",
+  password: "1234",
+  database: "ISAloginDB",
 });
 
 // Connect to MySQL
@@ -26,10 +27,10 @@ db.connect((err) => {
 // Middleware to parse JSON and handle form submissions
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
+app.use('/img', express.static(path.join(__dirname, 'img')));
 // Serve the HTML form
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/register.html");
+  res.sendFile(__dirname + "/ecommerce.html");
 });
 
 app.get("/error", (req, res) => {
@@ -45,6 +46,10 @@ app.get("/update", (req, res) => {
 app.get("/signinpage", (req, res) => {
   res.sendFile(__dirname + "/signin.html");
 });
+app.get("/register", (req, res) => {
+  res.sendFile(__dirname + "/register.html");
+});
+
 // Handle form submissions
 app.post("/submitForm", (req, res) => {
   try {
