@@ -4,25 +4,76 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    p {
+      color: #666;
+      margin: 10px 0;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #edit {
+      background-color: #007BFF;
+    }
+
+    #edit:hover {
+      background-color: #0056b3;
+    }
+
+    #delete {
+      background-color: #DC3545;
+    }
+
+    #delete:hover {
+      background-color: #c82333;
+    }
+  </style>
 </head>
 <body>
+  <h1>User Profile</h1>
+  <p>Email: <span id="email"></span></p>
+  <p>Role: <span id="role"></span></p>
+
   <script>
-    // Function to get query parameters from the URL
     function getQueryParam(name) {
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get(name);
     }
 
-    // Retrieve and display the inserted data
     const email = getQueryParam('email');
     const role = getQueryParam('role');
 
-    document.write(`<p>Email: ${email}</p>`);
-    document.write(`<p>Role: ${role}</p>`);
+    document.getElementById('email').innerText = email;
+    document.getElementById('role').innerText = role;
 
     function showEditForm() {
         location.replace(`http://localhost:3000/update?email=${email}&role=${role}`)
     }
+
     function deleteProfile() {
          fetch(`http://localhost:3000/deleteProfile?email=${email}`, {
             method: 'DELETE',
@@ -38,15 +89,14 @@
          })
          .catch(error => {
             console.error('Error deleting profile:', error);
-            
          });
+
          window.location.href = "http://localhost:3000/signinpage";
-
     }
-
   </script>
-<button id="edit" onclick="showEditForm()">edit credentials</button>
-<button onclick="deleteProfile()">delete this profile</button>
+
+  <button id="edit" onclick="showEditForm()">Edit Credentials</button>
+  <button id="delete" onclick="deleteProfile()">Delete this Profile</button>
   
 </body>
 </html>
